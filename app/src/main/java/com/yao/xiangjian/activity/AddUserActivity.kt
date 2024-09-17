@@ -6,6 +6,7 @@ import android.R.attr.path
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -62,7 +63,7 @@ class AddUserActivity : AppCompatActivity() {
         // 设置ImageView的点击事件，打开图片库
         inflate.imageView.setOnClickListener(View.OnClickListener {
             //检查权限
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)==RESULT_OK){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
                 pickImageResult.launch("image/*")
             }else{
                 //请求权限
@@ -89,6 +90,7 @@ class AddUserActivity : AppCompatActivity() {
             }
             //恢复默认图片
             OldImgPath=""
+            Glide.with(this).load(R.drawable.imgadd).into(inflate.imageView)
         }
         //删除联系人
         inflate.deleteUser.setOnClickListener {
